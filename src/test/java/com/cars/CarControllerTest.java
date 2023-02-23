@@ -41,7 +41,16 @@ public class CarControllerTest {
     @Test
     @DisplayName("return cars by year")
     void return_cars_by_year() {
-        Car[] cars = httpClient.toBlocking().retrieve("cars/year/2008", Car[].class);
+        CarsDTO carsDTO = httpClient.toBlocking().retrieve("cars/year/2008", CarsDTO.class);
+        Car[] cars = carsDTO.getCars();
         Assertions.assertThat(cars.length).isEqualTo(48);
+    }
+
+    @Test
+    @DisplayName("return cars by model")
+    void return_cars_by_model() {
+        CarsDTO carsDTO = httpClient.toBlocking().retrieve("cars/model/Compass", CarsDTO.class);
+        Car[] cars = carsDTO.getCars();
+        Assertions.assertThat(cars.length).isEqualTo(2);
     }
 }

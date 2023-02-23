@@ -23,8 +23,16 @@ public class CarController {
     public CarsDTO getCars() {
         return carService.getCars();
     }
+
     @Get("year/{year}")
-    public Car[] getCarsByYear(int year) {
+    public CarsDTO getCarsByYear(int year) {
         return carService.getCarsByYear(year);
+    }
+
+    @Get("model/{model}")
+    public CarsDTO getCarsByModel(String model) {
+        System.out.println(model);
+        CarsDTO carsDTO = carService.getCarsByModel(model);
+        return carsDTO;
     }
 }

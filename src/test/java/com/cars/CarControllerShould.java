@@ -33,9 +33,16 @@ public class CarControllerShould {
     @Test
     @DisplayName("call CarService for carList of the year")
     void call_car_service_for_car_list_of_the_year() {
-
         carController = new CarController(carService);
         carController.getCarsByYear(2008);
         Mockito.verify(carService).getCarsByYear(2008);
+    }
+
+    @Test
+    @DisplayName("call CarService for carList of the model")
+    void call_car_service_for_car_list_of_the_model() {
+        carController = new CarController(carService);
+        carController.getCarsByModel("Compass");
+        Mockito.verify(carService).getCarsByModel("Compass");
     }
 }

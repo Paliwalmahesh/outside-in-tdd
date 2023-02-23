@@ -1,5 +1,7 @@
 package com.cars;
 
+import com.cars.dto.CarsDTO;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,5 +37,37 @@ public class CarServiceShould {
         carService = new CarService(carClient);
         carService.getCars();
         Mockito.verify(carClient).fetchAll();
+    }
+
+    @Test
+    @DisplayName("should return all cars by year 2008")
+    void should_return_all_cars_by_year_2008() {
+        carService = new CarService(carClient);
+        Car[] cars = new Car[] {
+                new Car("1", "Mitsubishi", 2002, "BMW"),
+                new Car("2", "Nano", 2008, "Volkswagen"),
+                new Car("3", "Hyundai", 2008, "Volkswagen"),
+                new Car("4", "Creta", 2009, "BMW")
+        };
+        Mockito.when(carClient.fetchAll()).thenReturn(new CarsDTO(cars));
+        Car[] returnedCars = carService.getCarsByYear(2008).getCars();
+        Assertions.assertThat(returnedCars)
+                .allSatisfy(car -> Assertions.assertThat(car.getYear()).isEqualTo(2008));
+    }
+
+    @Test
+    @DisplayName("should return all cars by model Compass")
+    void should_return_all_cars_by_model_compass() {
+        carService = new CarService(carClient);
+        Car[] cars = new Car[] {
+                new Car("1", "Mitsubishi", 2002, "Compass"),
+                new Car("2", "Nano", 2008, "Volkswagen"),
+                new Car("3", "Hyundai", 2008, "Volkswagen"),
+                new Car("4", "Creta", 2009, "Compass")
+        };
+        Mockito.when(carClient.fetchAll()).thenReturn(new CarsDTO(cars));
+        Car[] returnedCars = carService.getCarsByModel("Compass").getCars();
+        Assertions.assertThat(returnedCars)
+                .allSatisfy(car -> Assertions.assertThat(car.getModel()).isEqualTo("Compass"));
     }
 }

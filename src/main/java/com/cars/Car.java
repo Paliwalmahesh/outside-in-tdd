@@ -6,11 +6,13 @@ public class Car {
     private String id;
     private String carMake;
     private int year;
+    private String model;
 
-    public Car(@JsonProperty("id") String id, @JsonProperty("car") String carMake, @JsonProperty("car_model_year") int year) {
+    public Car(@JsonProperty("id") String id, @JsonProperty("car") String carMake, @JsonProperty("car_model_year") int year, @JsonProperty("car_model") String model) {
         this.id = id;
         this.carMake = carMake;
         this.year = year;
+        this.model = model;
     }
 
     public int getYear() {
@@ -35,5 +37,14 @@ public class Car {
 
     public void setCarMake(String carMake) {
         this.carMake = carMake;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.parseInt(id);
+    }
+
+    public String getModel() {
+        return model;
     }
 }

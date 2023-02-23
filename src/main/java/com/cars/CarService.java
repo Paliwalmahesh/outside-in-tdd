@@ -22,10 +22,21 @@ public class CarService {
         return carClient.fetchAll();
     }
 
-    public Car[] getCarsByYear(int year) {
+    public CarsDTO getCarsByYear(int year) {
         CarsDTO carsDTO = carClient.fetchAll();
         List<Car> cars = List.of(carsDTO.getCars());
-        return cars.stream()
+        final Car[] filteredCars = cars.stream()
                 .filter(car -> car.getYear() == year).toArray(Car[]::new);
+        return new CarsDTO(filteredCars.clone());
+    }
+
+    public CarsDTO getCarsByModel(String model) {
+        CarsDTO carsDTO = carClient.fetchAll();
+        List<Car> cars = List.of(carsDTO.getCars());
+        final Car[] filteredCars = cars.stream().
+                filter(car -> car.getModel().equals(model))
+        .toArray(Car[]::new);
+        carsDTO.addCar(filteredCars);
+        return carsDTO;
     }
 }

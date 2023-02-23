@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CarDTO {
     private Car car;
+
     public CarDTO(@JsonProperty("Car") Car car) {
         this.car = car;
     }
