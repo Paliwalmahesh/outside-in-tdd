@@ -23,17 +23,18 @@ public class CurrencyCalculatorTest {
         double interestRate = 3.5;
         int durationYears = 30;
         //when
-        int monthlyIncome=100;
+        int monthlyIncome = 100;
         Emi emi = httpClient.toBlocking().retrieve("emi-calculator/30?loanAmount="
                 + loanAmount + "&interestRate=" + interestRate + "&monthlyIncome=" + monthlyIncome, Emi.class);
         int interestPaid = emi.getInterestPaid();
-        //then
         int monthlyAmount = emi.getMonthlyPayment();
+        //then
         Assertions.assertThat(interestPaid).isEqualTo(123312);
         Assertions.assertThat(monthlyAmount).isEqualTo(898);
 
 
     }
+
     @Test
     @DisplayName("should approve if monthly income is twice the monthly payment  ")
     void should_approve_if_monthly_income_is_twice_the_monthly_payment() {
@@ -42,13 +43,14 @@ public class CurrencyCalculatorTest {
         double interestRate = 3.5;
         int durationYears = 30;
         //when
-        int monthlyIncome=100;
+        int monthlyIncome = 100;
         Emi emi = httpClient.toBlocking().retrieve("emi-calculator/30?loanAmount="
                 + loanAmount + "&interestRate=" + interestRate + "&monthlyIncome=" + monthlyIncome, Emi.class);
-      boolean approval = emi.getApproval();
-      Assertions.assertThat(approval).isFalse();
+        boolean approval = emi.getApproval();
+        //then
+        Assertions.assertThat(approval).isFalse();
 
-        }
+    }
 }
 
 

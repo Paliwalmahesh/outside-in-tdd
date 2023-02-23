@@ -1,21 +1,20 @@
 package com.incubyte;
 
+import io.micronaut.context.annotation.Bean;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
-
+@Singleton
 public class EmiService {
 
 
 
     EmiControllerClient emiControllerClient;
-    @Inject
-    HttpClient httpClient;
-
-    public EmiService(EmiControllerClient emiControllerClient) {
+       public EmiService(EmiControllerClient emiControllerClient) {
 
         this.emiControllerClient = emiControllerClient;
     }
