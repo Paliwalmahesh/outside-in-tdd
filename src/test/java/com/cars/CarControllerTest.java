@@ -53,4 +53,12 @@ public class CarControllerTest {
         Car[] cars = carsDTO.getCars();
         Assertions.assertThat(cars.length).isEqualTo(2);
     }
+    @Test
+    @DisplayName("return cars by colour")
+    void return_cars_by_colour() {
+
+        CarsDTO carsDTO = httpClient.toBlocking().retrieve("cars/colour/Maroon", CarsDTO.class);
+        Car[] cars = carsDTO.getCars();
+        Assertions.assertThat(cars.length).isEqualTo(53);
+        }
 }

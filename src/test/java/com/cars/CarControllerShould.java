@@ -45,4 +45,11 @@ public class CarControllerShould {
         carController.getCarsByModel("Compass");
         Mockito.verify(carService).getCarsByModel("Compass");
     }
+    @Test
+    @DisplayName("call CarService for CarList of the colour")
+    void call_car_service_for_car_list_of_the_colour() {
+        carController = new CarController(carService);
+        carController.getCarsByColour("Maroon");
+        Mockito.verify(carService).getCarsByColour("Maroon");
+        }
 }

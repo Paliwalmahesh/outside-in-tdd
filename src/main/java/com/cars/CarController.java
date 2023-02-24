@@ -31,8 +31,12 @@ public class CarController {
 
     @Get("model/{model}")
     public CarsDTO getCarsByModel(String model) {
-        System.out.println(model);
         CarsDTO carsDTO = carService.getCarsByModel(model);
         return carsDTO;
+    }
+    @Get("colour/{colour}")
+    public CarsDTO getCarsByColour(String colour) {
+            CarsDTO carsDto = carService.getCarsByColour(colour);
+            return  carsDto;
     }
 }

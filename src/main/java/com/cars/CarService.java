@@ -39,4 +39,14 @@ public class CarService {
         carsDTO.addCar(filteredCars);
         return carsDTO;
     }
+
+    public CarsDTO getCarsByColour(String colour) {
+        CarsDTO carsDTO = carClient.fetchAll();
+        List<Car> cars = List.of(carsDTO.getCars());
+        final Car[] filteredCars = cars.stream().
+                filter(car -> car.getColour().equals(colour))
+                .toArray(Car[]::new);
+        carsDTO.addCar(filteredCars);
+        return carsDTO;
+    }
 }

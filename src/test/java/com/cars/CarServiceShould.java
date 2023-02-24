@@ -44,10 +44,10 @@ public class CarServiceShould {
     void should_return_all_cars_by_year_2008() {
         carService = new CarService(carClient);
         Car[] cars = new Car[] {
-                new Car("1", "Mitsubishi", 2002, "BMW"),
-                new Car("2", "Nano", 2008, "Volkswagen"),
-                new Car("3", "Hyundai", 2008, "Volkswagen"),
-                new Car("4", "Creta", 2009, "BMW")
+                new Car("1", "Mitsubishi", 2002, "BMW", "Maroon"),
+                new Car("2", "Nano", 2008, "Volkswagen", "Maroon"),
+                new Car("3", "Hyundai", 2008, "Volkswagen", "Maroon"),
+                new Car("4", "Creta", 2009, "BMW", "Maroon")
         };
         Mockito.when(carClient.fetchAll()).thenReturn(new CarsDTO(cars));
         Car[] returnedCars = carService.getCarsByYear(2008).getCars();
@@ -60,14 +60,30 @@ public class CarServiceShould {
     void should_return_all_cars_by_model_compass() {
         carService = new CarService(carClient);
         Car[] cars = new Car[] {
-                new Car("1", "Mitsubishi", 2002, "Compass"),
-                new Car("2", "Nano", 2008, "Volkswagen"),
-                new Car("3", "Hyundai", 2008, "Volkswagen"),
-                new Car("4", "Creta", 2009, "Compass")
+                new Car("1", "Mitsubishi", 2002, "Compass", "Maroon"),
+                new Car("2", "Nano", 2008, "Volkswagen", "Maroon"),
+                new Car("3", "Hyundai", 2008, "Volkswagen", "Maroon"),
+                new Car("4", "Creta", 2009, "Compass", "Maroon")
         };
         Mockito.when(carClient.fetchAll()).thenReturn(new CarsDTO(cars));
         Car[] returnedCars = carService.getCarsByModel("Compass").getCars();
         Assertions.assertThat(returnedCars)
                 .allSatisfy(car -> Assertions.assertThat(car.getModel()).isEqualTo("Compass"));
     }
+    @Test
+    @DisplayName("return all cars of colour Maroon")
+    void return_all_cars_of_colour_maroon() {
+
+        carService = new CarService(carClient);
+        Car[] cars = new Car[] {
+                new Car("1", "Mitsubishi", 2002, "Compass","Maroon"),
+                new Car("2", "Nano", 2008, "Volkswagen", "Orange"),
+                new Car("3", "Hyundai", 2008, "Volkswagen", "Maroon"),
+                new Car("4", "Creta", 2009, "Compass", "Black")
+        };
+        Mockito.when(carClient.fetchAll()).thenReturn(new CarsDTO(cars));
+        Car[] returnedCars = carService.getCarsByColour("Maroon").getCars();
+        Assertions.assertThat(returnedCars)
+                .allSatisfy(car -> Assertions.assertThat(car.getColour()).isEqualTo("Maroon"));
+        }
 }
